@@ -1,18 +1,22 @@
-from django.db import IntegrityError
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (
+    LoginView, LogoutView
+)
+from django.views import generic
+from .forms import LoginForm
 
-from django.shortcuts import render
-from django.contrib.auth.models import User
 
-# Create your views here.
-def signupfunc(request):
-    if request.method == 'POST':
-        print(request.POST)
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        try:
-            user = User.objects.create_user(username, email, password)
-            return render(request, 'signup.html', {})
-        except IntegrityError:
-            return render(request, 'signup.html', {'error':'このユーザー名は既に登録されています。'})
-    
+class Top(generic.TemplateView):
+    """トップページ"""
+    template_name = 'top.html'
+
+
+class Login(LoginView):
+    """ログインページ"""
+    form_class = LoginForm
+    template_name = 'login.html'
+
+
+class Logout(LogoutView):
+    """ログアウトページ"""
+    template_name = 'top.html'
