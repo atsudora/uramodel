@@ -23,10 +23,14 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            
             <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
+                <li>
+                    <a class="nav-item nav-link" href="{% url 'user:user_detail' user.pk %}">ユーザー情報閲覧</a>
+                </li>
+                <li>
+                    <a class="nav-item nav-link" href="{% url 'user:user_update' user.pk %}">ユーザー情報更新</a>
+                </li>
                 <li　class="nav-item nav-link">
                     <a class="nav-item nav-link" href="{% url 'user:logout' %}">ログアウト</a>
                 </li>
